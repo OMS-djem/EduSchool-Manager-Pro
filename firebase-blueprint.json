@@ -1,0 +1,234 @@
+{
+  "entities": {
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Educational staff member responsible for instruction",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "schoolLevel": { "type": "string", "enum": ["all", "primary", "middle", "high"] },
+        "subjects": { "type": "string" },
+        "classes": { "type": "string" },
+        "weeklyHours": { "type": "number" },
+        "qualification": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "on_leave"] }
+      },
+      "required": ["id", "name", "email", "schoolLevel", "status"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Enrolled student across primary, middle, or high school",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "matricule": { "type": "string" },
+        "name": { "type": "string" },
+        "schoolLevel": { "type": "string", "enum": ["primary", "middle", "high"] },
+        "gradeClass": { "type": "string" },
+        "birthDate": { "type": "string" },
+        "gender": { "type": "string", "enum": ["M", "F"] },
+        "parentName": { "type": "string" },
+        "parentPhone": { "type": "string" },
+        "parentEmail": { "type": "string" },
+        "parentId": { "type": "string" },
+        "attendanceRate": { "type": "number" },
+        "status": { "type": "string", "enum": ["active", "transferred", "graduated"] },
+        "tuitionStatus": { "type": "string", "enum": ["paid", "partial", "unpaid"] }
+      },
+      "required": ["id", "matricule", "name", "schoolLevel", "gradeClass", "status"]
+    },
+    "Staff": {
+      "title": "Staff",
+      "description": "Non-teaching administrative and operational school staff",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "department": { "type": "string" },
+        "schoolLevel": { "type": "string", "enum": ["all", "primary", "middle", "high"] },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "on_leave"] }
+      },
+      "required": ["id", "name", "role", "department", "email", "status"]
+    },
+    "Finance": {
+      "title": "Finance",
+      "description": "Financial transaction, fee collection, or operating expense",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["income", "expense"] },
+        "category": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "schoolLevel": { "type": "string", "enum": ["primary", "middle", "high"] },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "status": { "type": "string", "enum": ["completed", "pending", "overdue"] },
+        "dueDate": { "type": "string" },
+        "paidDate": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "type", "category", "amount", "status", "invoiceNumber"]
+    },
+    "Exam": {
+      "title": "Exam",
+      "description": "Scheduled exam, test, or assessment",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "term": { "type": "string" },
+        "schoolLevel": { "type": "string", "enum": ["primary", "middle", "high"] },
+        "gradeClass": { "type": "string" },
+        "subject": { "type": "string" },
+        "examDate": { "type": "string" },
+        "maxScore": { "type": "number" },
+        "coefficient": { "type": "number" },
+        "status": { "type": "string", "enum": ["scheduled", "grading", "published"] }
+      },
+      "required": ["id", "title", "term", "schoolLevel", "gradeClass", "subject", "status"]
+    },
+    "Grade": {
+      "title": "Grade",
+      "description": "Student score and evaluation for an exam",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "examId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "subject": { "type": "string" },
+        "schoolLevel": { "type": "string", "enum": ["primary", "middle", "high"] },
+        "gradeClass": { "type": "string" },
+        "term": { "type": "string" },
+        "score": { "type": "number" },
+        "maxScore": { "type": "number" },
+        "coefficient": { "type": "number" },
+        "remarks": { "type": "string" },
+        "teacherName": { "type": "string" }
+      },
+      "required": ["id", "examId", "studentId", "subject", "score", "maxScore"]
+    },
+    "Attendance": {
+      "title": "Attendance",
+      "description": "Student daily attendance and punctuality record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "gradeClass": { "type": "string" },
+        "schoolLevel": { "type": "string", "enum": ["primary", "middle", "high"] },
+        "date": { "type": "string" },
+        "status": { "type": "string", "enum": ["present", "absent_unjustified", "absent_justified", "late"] },
+        "reason": { "type": "string" },
+        "recordedBy": { "type": "string" }
+      },
+      "required": ["id", "studentId", "date", "status"]
+    },
+    "ParentMonitoring": {
+      "title": "ParentMonitoring",
+      "description": "Parental observation note, conduct incident, praise, or notice",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "parentId": { "type": "string" },
+        "date": { "type": "string" },
+        "type": { "type": "string", "enum": ["conduct", "homework", "achievement", "alert", "appointment"] },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "author": { "type": "string" },
+        "acknowledgedByParent": { "type": "boolean" }
+      },
+      "required": ["id", "studentId", "title", "description", "type", "date"]
+    },
+    "Subject": {
+      "title": "Subject",
+      "description": "Curriculum course subject",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "schoolLevel": { "type": "string", "enum": ["primary", "middle", "high"] },
+        "category": { "type": "string" },
+        "weeklyHours": { "type": "number" },
+        "coefficient": { "type": "number" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "name", "code", "schoolLevel", "coefficient"]
+    },
+    "CourseModule": {
+      "title": "CourseModule",
+      "description": "Detailed pedagogical module and lesson syllabus",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "schoolLevel": { "type": "string", "enum": ["primary", "middle", "high"] },
+        "gradeClass": { "type": "string" },
+        "chapterNumber": { "type": "number" },
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "objectives": { "type": "string" },
+        "durationWeeks": { "type": "number" },
+        "status": { "type": "string", "enum": ["completed", "in_progress", "upcoming"] },
+        "resourcesCount": { "type": "number" },
+        "homeworkAssignment": { "type": "string" }
+      },
+      "required": ["id", "subjectId", "title", "schoolLevel", "status"]
+    }
+  },
+  "firestore": {
+    "/teachers/{teacherId}": {
+      "schema": "Teacher",
+      "description": "Collection of teachers across primary, middle, and high schools"
+    },
+    "/students/{studentId}": {
+      "schema": "Student",
+      "description": "Collection of students across all educational levels"
+    },
+    "/staff/{staffId}": {
+      "schema": "Staff",
+      "description": "Operational and administrative school personnel"
+    },
+    "/finances/{financeId}": {
+      "schema": "Finance",
+      "description": "School billing, tuition receipts, and expense ledger"
+    },
+    "/exams/{examId}": {
+      "schema": "Exam",
+      "description": "Exams and assessments planned and conducted"
+    },
+    "/grades/{gradeId}": {
+      "schema": "Grade",
+      "description": "Academic scores, evaluations, and trimester grades"
+    },
+    "/attendance/{attendanceId}": {
+      "schema": "Attendance",
+      "description": "Daily attendance, tardiness, and absences"
+    },
+    "/parentMonitoring/{monitoringId}": {
+      "schema": "ParentMonitoring",
+      "description": "Notes, alerts, conduct feedback, and notifications for parents"
+    },
+    "/subjects/{subjectId}": {
+      "schema": "Subject",
+      "description": "Academic subjects by school tier"
+    },
+    "/courseModules/{moduleId}": {
+      "schema": "CourseModule",
+      "description": "Pedagogical chapters, module contents, and objectives"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net: default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // Teachers Collection
+    match /teachers/{teacherId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(teacherId);
+    }
+
+    // Students Collection
+    match /students/{studentId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(studentId);
+    }
+
+    // Staff Collection
+    match /staff/{staffId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(staffId);
+    }
+
+    // Finances Collection
+    match /finances/{financeId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(financeId);
+    }
+
+    // Exams Collection
+    match /exams/{examId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(examId);
+    }
+
+    // Grades Collection
+    match /grades/{gradeId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(gradeId);
+    }
+
+    // Attendance Collection
+    match /attendance/{attendanceId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(attendanceId);
+    }
+
+    // Parent Monitoring Collection
+    match /parentMonitoring/{monitoringId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(monitoringId);
+    }
+
+    // Subjects Collection
+    match /subjects/{subjectId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(subjectId);
+    }
+
+    // Course Modules Collection
+    match /courseModules/{moduleId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(moduleId);
+    }
+  }
+}

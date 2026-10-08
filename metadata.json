@@ -1,0 +1,6 @@
+{
+  "name": "EduSchool Manager Pro - K-12 School Management System",
+  "description": "Comprehensive school management system for primary, middle, and high schools managing teachers, students, staff, finances, exams, report cards, parental monitoring, and course modules.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
